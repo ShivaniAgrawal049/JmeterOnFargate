@@ -1,0 +1,35 @@
+version: '2'
+
+
+
+services:
+
+  master:
+
+    build: ./jmeter-master
+
+    container_name: master
+
+    tty: true 
+
+    networks:
+
+      - jmeter-network
+
+  slave:
+
+    build: ./jmeter-slave
+
+    container_name: slave
+    
+    tty: true
+    
+    networks:
+
+      - jmeter-network
+
+
+
+networks:
+
+  jmeter-network:

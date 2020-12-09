@@ -1,0 +1,21 @@
+version: 0.1
+
+phases:
+  build:
+    commands:
+      - docker build -t jmeter-base jmeter-base
+      - docker-compose build
+      - docker-compose up -d
+
+post_build:
+    commands:
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 337554717225.dkr.ecr.ap-south-1.amazonaws.com
+      - docker tag jmeter-base:latest 337554717225.dkr.ecr.ap-south-1.amazonaws.com/jmeter-base:latest
+      - docker push 337554717225.dkr.ecr.ap-south-1.amazonaws.com/jmeter-base:latest
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 337554717225.dkr.ecr.ap-south-1.amazonaws.com
+      - docker tag jmeter_master:latest 337554717225.dkr.ecr.ap-south-1.amazonaws.com/jmeter_master:latest
+      - docker push 337554717225.dkr.ecr.ap-south-1.amazonaws.com/jmeter_master:latest
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 337554717225.dkr.ecr.ap-south-1.amazonaws.com
+      - docker tag jmeter_slave:latest 337554717225.dkr.ecr.ap-south-1.amazonaws.com/jmeter_slave:latest
+      - docker push 337554717225.dkr.ecr.ap-south-1.amazonaws.com/jmeter_slave:latest
+
