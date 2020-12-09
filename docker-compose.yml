@@ -4,6 +4,18 @@ version: '2'
 
 services:
 
+  base:
+
+    build: ./jmeter-base
+
+    container_name: base
+
+    tty: true 
+
+    networks:
+
+      - jmeter-network
+  
   master:
 
     build: ./jmeter-master
